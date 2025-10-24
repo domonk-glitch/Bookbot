@@ -1,33 +1,26 @@
-# Word count function splits all words apart and counts.
-def get_word_count(path):
-    with open(path) as f:
-        file_contents = f.read()
-        words = file_contents.split()
-        count = len(words)
-        print(f"Found {count} total words")
-
-# Dictionary for further analysis of individual characters.
-chara = {}
-
-# Letter count function breaks full text down into individual characters, counts them and stores them in 'chara' dictionary for further analysis.
-def letter_count(path):
-    with open(path) as f:
-        file_contents = f.read()
-        lower_string = file_contents.lower()
-        letters = list(lower_string)
-        for letter in letters:
-            if letter in chara:
-                chara[letter] += 1
-
-            else:
-                chara[letter] = 1
-       
-# Sorting function for the characters stored in the 'chara' dictionary. Will sort them by number of appearances before sending to print.
-#def sort(chara):
+def get_num_words(text):
+    words = text.split()
+    return len(words)
 
 
+def get_chars_dict(text):
+    chars = {}
+    for c in text:
+        lowered = c.lower()
+        if lowered in chars:
+            chars[lowered] += 1
+        else:
+            chars[lowered] = 1
+    return chars
 
-# Code snippet to print the detailed reports. Will be changing to print a list of dictionaries soon.
-        for char in chara:
-            number = chara[char]
-            print(f"'{char}': {number}")
+
+def sort_on(d):
+    return d["num"]
+
+
+def chars_dict_to_sorted_list(num_chars_dict):
+    sorted_list = []
+    for ch in num_chars_dict:
+        sorted_list.append({"char": ch, "num": num_chars_dict[ch]})
+    sorted_list.sort(reverse=True, key=sort_on)
+    return sorted_list
